@@ -1,0 +1,6 @@
+node_modules
+
+# REST Client
+*.http
+
+dev.js
