@@ -27,7 +27,8 @@ const ButtonsContainer = styled.div`
 `;
 
 const Button = styled.a`
-  width: 50%;
+  min-width: 80%;
+  padding: 0 3rem;
 
   &:not(:last-child) {
     margin-bottom: 2rem;
@@ -40,11 +41,13 @@ const Login = () => {
     <Container className="z-depth-2">
       <Heading className="heading">Login with</Heading>
       <ButtonsContainer>
+        {/* TODO: map over array of objects to render buttons */}
         <Button
           href="/auth/google"
           className="waves-effect waves-light btn google-plus red darken-1"
         >
-          <i className="fa fa-google-plus" aria-hidden="true" />
+          <i className="fa fa-google-plus left" aria-hidden="true" />
+          <span className="right">Sign in with Google</span>
         </Button>
       </ButtonsContainer>
     </Container>
