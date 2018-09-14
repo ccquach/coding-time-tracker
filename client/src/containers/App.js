@@ -7,6 +7,7 @@ import Aux from '../hoc/Auxiliary';
 import Header from './Layout/Header';
 import Footer from '../components/Layout/Footer';
 import Loading from '../components/UI/Loading/Loading';
+import Error from './UI/Error';
 import Landing from '../components/Landing';
 import Dashboard from './Dashboard';
 import Login from '../components/Login';
@@ -17,11 +18,12 @@ class App extends Component {
   };
 
   renderContent = () => {
-    const { auth } = this.props;
-    if (auth === null) return <Loading />;
+    const { auth, error, isFetching } = this.props;
+    if (isFetching) return <Loading />;
     return (
       <Aux>
         {auth ? <Header /> : null}
+        {error.message ? <Error /> : null}
         <Switch>
           <Route path="/login" component={Login} />
           <Route exact path="/" component={auth ? Dashboard : Landing} />
@@ -36,8 +38,10 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth,
+const mapStateToProps = ({ auth, error, isFetching }) => ({
+  auth,
+  error,
+  isFetching,
 });
 
 export default connect(
