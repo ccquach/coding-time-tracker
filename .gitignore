@@ -4,3 +4,5 @@ node_modules
 *.http
 
 dev.js
+
+*.xml

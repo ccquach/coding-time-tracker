@@ -10,6 +10,8 @@ html {
   font-size: 62.5%;
 }
 
+/* TODO: add root colors */
 body {
   box-sizing: border-box;
+  color: #212121;
 }

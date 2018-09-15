@@ -1,5 +1,5 @@
 import 'materialize-css/dist/css/materialize.min.css';
-import 'font-awesome/css/font-awesome.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './index.css';
 
 import React from 'react';

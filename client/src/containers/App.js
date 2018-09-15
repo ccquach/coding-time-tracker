@@ -3,14 +3,10 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import * as actions from '../store/actions';
 
-import Aux from '../hoc/Auxiliary';
-import Header from './Layout/Header';
-import Footer from '../components/Layout/Footer';
 import Loading from '../components/UI/Loading/Loading';
-import Error from './UI/Error';
+import Layout from './Layout/Layout';
 import Landing from '../components/Landing';
 import Dashboard from './Dashboard';
-import Login from '../components/Login';
 
 class App extends Component {
   componentDidMount = () => {
@@ -18,29 +14,26 @@ class App extends Component {
   };
 
   renderContent = () => {
-    const { auth, error, isFetching } = this.props;
+    const { auth, isFetching } = this.props;
     if (isFetching) return <Loading />;
     return (
-      <Aux>
-        {auth ? <Header /> : null}
-        {error.message ? <Error /> : null}
+      <Router>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route exact path="/" component={auth ? Dashboard : Landing} />
+          <Layout>
+            <Route exact path="/" component={auth ? Dashboard : Landing} />
+          </Layout>
         </Switch>
-        <Footer />
-      </Aux>
+      </Router>
     );
   };
 
   render() {
-    return <Router>{this.renderContent()}</Router>;
+    return this.renderContent();
   }
 }
 
-const mapStateToProps = ({ auth, error, isFetching }) => ({
+const mapStateToProps = ({ auth, isFetching }) => ({
   auth,
-  error,
   isFetching,
 });
 

@@ -1,56 +1,70 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from '../styles/colors';
+
+import Aux from '../hoc/Auxiliary';
 
 // #region styles
-const Container = styled.div`
-  background: #fff;
-  width: 30%;
-  margin: 4em auto;
-  overflow: hidden;
-  position: relative;
-  border-radius: 0.3em;
-  text-align: center;
-`;
-
-const Heading = styled.div`
-  font-size: 1.5rem;
-  letter-spacing: 0.5px;
-  background: ${colors.hex.primary};
-  color: ${colors.hex.greyLight};
+const Heading = styled.h4`
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 1px;
   text-transform: uppercase;
   padding: 1em;
 `;
 
-const ButtonsContainer = styled.div`
-  padding: 2rem;
-`;
-
 const Button = styled.a`
-  min-width: 80%;
-  padding: 0 3rem;
+  width: 100%;
+  text-align: left;
 
-  &:not(:last-child) {
-    margin-bottom: 2rem;
+  i {
+    font-size: 2rem;
+    margin-right: 2rem;
   }
 `;
 //#endregion
 
+// TODO: update Github and Facebook paths
+const PROVIDERS = [
+  {
+    name: 'Google',
+    path: '/auth/google',
+    icon: 'google-plus',
+    color: 'red darken-1',
+  },
+  {
+    name: 'Github',
+    // path: '/auth/github',
+    path: '',
+    icon: 'github',
+    color: 'grey darken-3',
+  },
+  {
+    name: 'Facebook',
+    // path: '/auth/facebook',
+    path: '',
+    icon: 'facebook-square',
+    color: 'blue darken-4',
+  },
+];
+
 const Login = () => {
   return (
-    <Container className="z-depth-2">
-      <Heading className="heading">Login with</Heading>
-      <ButtonsContainer>
-        {/* TODO: map over array of objects to render buttons */}
-        <Button
-          href="/auth/google"
-          className="waves-effect waves-light btn google-plus red darken-1"
-        >
-          <i className="fa fa-google-plus left" aria-hidden="true" />
-          <span className="right">Sign in with Google</span>
-        </Button>
-      </ButtonsContainer>
-    </Container>
+    <Aux>
+      <Heading>Login with</Heading>
+      {PROVIDERS.map(({ name, path, icon, color }) => (
+        <div className="row" key={name}>
+          <div className="col s6 offset-s3">
+            <Button
+              href={path}
+              className={`waves-effect waves-light btn-large ${color}`}
+            >
+              <i className={`fab fa-${icon} left`} aria-hidden="true" />
+              <span>Sign in with {name}</span>
+            </Button>
+          </div>
+        </div>
+      ))}
+    </Aux>
   );
 };
 

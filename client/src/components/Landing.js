@@ -1,9 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import M from 'materialize-css';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import colors from '../styles/colors';
 
 import Hero from '../images/hero.jpg';
+import Login from './Login';
+import Modal from './UI/Modal';
 
 // #region styles
 const Wrapper = styled.main`
@@ -43,24 +45,38 @@ const SubHeading = styled.span`
 // #endregion
 // TODO: add pulse animation on button hover
 
-const Landing = () => {
-  const { text, base } = colors;
-  return (
-    <Wrapper className="valign-wrapper">
-      <Heading className={text.greyLight}>
-        <MainHeading>Coding Time Tracker</MainHeading>
-        <SubHeading>Set goals. Track progress. Commit to Learning.</SubHeading>
-        <Link
-          to="/login"
-          className={`waves-effect waves-light btn btn-large ${base.secondary}`}
-        >
-          {/* TODO: fix hover effect loss on button default color change */}
-          <i className="material-icons right">chevron_right</i>
-          Start tracking now
-        </Link>
-      </Heading>
-    </Wrapper>
-  );
-};
+class Landing extends Component {
+  componentDidMount = () => {
+    const elem = document.querySelector('.modal');
+    M.Modal.init(elem);
+  };
+
+  render() {
+    const { text, base } = colors;
+    return (
+      <Wrapper className="valign-wrapper">
+        <Heading className={text.greyLight}>
+          <MainHeading>Coding Time Tracker</MainHeading>
+          <SubHeading>
+            Set goals. Track progress. Commit to Learning.
+          </SubHeading>
+          <a
+            href="#login"
+            className={`modal-trigger waves-effect waves-light btn btn-large ${
+              base.secondary
+            }`}
+          >
+            {/* TODO: fix hover effect loss on button default color change */}
+            <i className="material-icons right">chevron_right</i>
+            Start tracking now
+          </a>
+          <Modal id="login">
+            <Login />
+          </Modal>
+        </Heading>
+      </Wrapper>
+    );
+  }
+}
 
 export default Landing;
