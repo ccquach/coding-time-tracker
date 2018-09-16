@@ -8,7 +8,7 @@ import Login from './Login';
 import Modal from './UI/Modal';
 
 // #region styles
-const Wrapper = styled.main`
+const Wrapper = styled.div`
   height: 100vh;
   width: 100vw;
   position: absolute;
@@ -47,8 +47,7 @@ const SubHeading = styled.span`
 
 class Landing extends Component {
   componentDidMount = () => {
-    const elem = document.querySelector('.modal');
-    M.Modal.init(elem);
+    M.Modal.init(document.querySelector('.modal'));
   };
 
   render() {

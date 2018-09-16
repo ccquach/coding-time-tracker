@@ -1,3 +1,18 @@
+:root {
+  --primary: #00bcd4;
+  --secondary: #d81b60;
+  --greyLight: #fafafa;
+  --greyDark: #212121;
+
+  /* Loading animation */
+  --orchid: #f92672;
+  --br-blue: #66d9ef;
+  --henn1nk: #a6e22e;
+  --spice: #fd971f;
+  --classColour: #ffe792;
+  --parColour: #f8f8f2;
+}
+
 *,
 *::before,
 *::after {
@@ -13,5 +28,31 @@ html {
 /* TODO: add root colors */
 body {
   box-sizing: border-box;
-  color: #212121;
+  color: var(--greyDark);
+}
+
+/* Layout styles */
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+nav,
+main,
+footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width: 992px) {
+  nav,
+  main,
+  footer {
+    padding-left: 0;
+  }
 }

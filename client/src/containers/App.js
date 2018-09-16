@@ -7,6 +7,8 @@ import Loading from '../components/UI/Loading/Loading';
 import Layout from './Layout/Layout';
 import Landing from '../components/Landing';
 import Dashboard from './Dashboard';
+import JournalPage from '../components/Journal/JournalPage';
+import GoalsPage from '../components/Goals/GoalsPage';
 
 class App extends Component {
   componentDidMount = () => {
@@ -20,6 +22,8 @@ class App extends Component {
       <Router>
         <Switch>
           <Layout>
+            <Route path="/journal" component={JournalPage} />
+            <Route path="/goals" component={GoalsPage} />
             <Route exact path="/" component={auth ? Dashboard : Landing} />
           </Layout>
         </Switch>

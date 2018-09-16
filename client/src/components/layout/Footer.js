@@ -4,21 +4,24 @@ import styled from 'styled-components';
 
 import colors from '../../styles/colors';
 
-const { hex } = colors;
+const { text } = colors;
 
-const Container = styled.footer`
-  margin: 2rem 0;
-  text-align: center;
-  font-size: 1.3rem;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  color: ${({ path }) => (path === '/' ? hex.greyLight : hex.greyDark)};
+const Wrapper = styled.footer`
+  z-index: 1;
 `;
 
-const Footer = ({ location }) => (
-  <Container path={location.pathname}>&copy; 2018 Cynthia Quach</Container>
+const Footer = ({ location, auth }) => (
+  <Wrapper className="page-footer transparent">
+    <div className="footer-copyright center-align transparent">
+      <div
+        className={`container ${
+          location.pathname === '/' && auth ? text.greyDark : text.greyLight
+        }`}
+      >
+        &copy; 2018 Cynthia Quach
+      </div>
+    </div>
+  </Wrapper>
 );
 
 export default withRouter(Footer);

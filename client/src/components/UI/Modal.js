@@ -7,6 +7,9 @@ const Wrapper = styled.div`
   background-image: url(${BackgroundImage});
   background-size: cover;
   background-position: center;
+  width: 50%;
+  min-width: 30rem;
+  max-width: 60rem;
 `;
 
 const Modal = ({ children, id }) => {
