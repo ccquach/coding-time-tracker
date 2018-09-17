@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const keys = require('../config/keys');
 
 mongoose.set('debug', true);
+mongoose.set('useCreateIndex', true);
 mongoose
   .connect(
     keys.mongoURI,

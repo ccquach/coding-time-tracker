@@ -9,7 +9,7 @@ const LOADING_MINIMUM_DURATION = 3000;
 export function* fetchUserSaga() {
   try {
     yield put(actions.setLoadingState(true));
-    const res = yield axios.get('/auth/current_user');
+    const res = yield axios.get('/api/auth/current_user');
     yield delay(LOADING_MINIMUM_DURATION);
     yield all([
       put(actions.setCurrentUser(res.data)),

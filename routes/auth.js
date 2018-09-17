@@ -1,9 +1,15 @@
 const router = require('express').Router();
-const handlers = require('../handlers/auth');
+const {
+  initiateAuth,
+  getUserAccount,
+  redirectHome,
+  logout,
+  getCurrentUser,
+} = require('../handlers/auth');
 
-router.get('/google', handlers.initiateAuth);
-router.get('/google/callback', handlers.getUserAccount, handlers.redirectHome);
-router.get('/logout', handlers.logout);
-router.get('/current_user', handlers.getCurrentUser);
+router.get('/google', initiateAuth);
+router.get('/google/callback', getUserAccount, redirectHome);
+router.get('/logout', logout);
+router.get('/current_user', getCurrentUser);
 
 module.exports = router;

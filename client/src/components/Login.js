@@ -25,20 +25,20 @@ const Button = styled.a`
 const PROVIDERS = [
   {
     name: 'Google',
-    path: '/auth/google',
+    path: '/api/auth/google',
     icon: 'google-plus',
     color: 'red darken-1',
   },
   {
     name: 'Github',
-    // path: '/auth/github',
+    // path: '/api/auth/github',
     path: '',
     icon: 'github',
     color: 'grey darken-3',
   },
   {
     name: 'Facebook',
-    // path: '/auth/facebook',
+    // path: '/api/auth/facebook',
     path: '',
     icon: 'facebook-square',
     color: 'blue darken-4',

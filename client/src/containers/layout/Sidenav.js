@@ -33,7 +33,7 @@ class Sidenav extends Component {
           <a>Hi, {this.props.auth.name}!</a>
         </li>
         <li>
-          <a href="/auth/logout" className="waves-effect">
+          <a href="/api/auth/logout" className="waves-effect">
             <i className="material-icons">power_settings_new</i>
             Logout
           </a>
