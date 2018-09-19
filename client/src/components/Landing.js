@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   background-position: bottom;
 `;
 
-const Heading = styled.h1`
+const Heading = styled.h3`
   font-size: 6em;
   font-weight: 300;
   text-transform: uppercase;

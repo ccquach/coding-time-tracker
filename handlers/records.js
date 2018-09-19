@@ -1,45 +1,36 @@
 const mongoose = require('mongoose');
-const moment = require('moment');
 
+const getStartAndEndDates = require('../utils/getStartAndEndDates');
 const Record = mongoose.model('Record');
 
 exports.recordHoursCoded = async (req, res, next) => {
   try {
-    const { date, hoursCoded } = req.user;
-
-    // parse date
-    const year = moment(date).format('YYYY');
-    const month = moment(date).format('MM');
-    const weekIndex = moment(date)
-      .startOf('week')
-      .isoWeek();
-    const day = moment(date).format('DD');
+    const { date, hoursCoded } = req.body;
 
     // update existing day, otherwise create doc
+    const { dateStart, dateEnd } = getStartAndEndDates(date);
+
     const record = await Record.updateOne(
       {
         _user: req.user.id,
-        years: {
-          year,
-          months: {
-            month,
-            weeks: {
-              weekIndex,
-              days: {
-                day,
-              },
-            },
-          },
+        date: {
+          $gte: new Date(`${dateStart}`),
+          $lt: new Date(`${dateEnd}`),
         },
       },
       {
-        $set: { hoursCoded },
+        $setOnInsert: {
+          date,
+        },
+        $set: {
+          hoursCoded: +hoursCoded,
+        },
       },
       {
         upsert: true,
       }
     ).exec();
-    res.json(record);
+    res.status(200).json(record);
   } catch (err) {
     return next(err);
   }

@@ -4,13 +4,15 @@ import { connect } from 'react-redux';
 import Aux from '../../hoc/Auxiliary';
 import Header from '../../components/Layout/Header';
 import Footer from '../../components/Layout/Footer';
+import ActionButton from '../../components/UI/ActionButton';
 import Error from '../UI/Error';
 
 const Layout = ({ children, auth, error }) => (
   <Aux>
-    {auth ? <Header /> : null}
+    {auth && <Header />}
     <main>
       <div className="container">{children}</div>
+      {auth && <ActionButton />}
       {error.message ? <Error /> : null}
     </main>
     <Footer auth={auth} />

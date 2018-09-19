@@ -9,6 +9,7 @@ import Landing from '../components/Landing';
 import Dashboard from './Dashboard';
 import JournalPage from '../components/Journal/JournalPage';
 import GoalsPage from '../components/Goals/GoalsPage';
+import FormPage from '../components/Form/FormPage';
 
 class App extends Component {
   componentDidMount = () => {
@@ -22,6 +23,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Layout>
+            <Route path="/new/:form" component={FormPage} />
             <Route path="/journal" component={JournalPage} />
             <Route path="/goals" component={GoalsPage} />
             <Route exact path="/" component={auth ? Dashboard : Landing} />

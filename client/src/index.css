@@ -27,6 +27,7 @@ html {
 
 /* TODO: add root colors */
 body {
+  font-weight: 100;
   box-sizing: border-box;
   color: var(--greyDark);
 }
@@ -55,4 +56,10 @@ header ~ footer {
   header ~ footer {
     padding-left: 0;
   }
+}
+
+/* Materialize.css overrides */
+input[type='range']:not(.browser-default).invalid ~ .helper-text:after {
+  content: attr(data-error);
+  color: #f44336;
 }

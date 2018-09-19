@@ -5,13 +5,13 @@ import axios from 'axios';
 import { LOADING_MINIMUM_DURATION } from './constants';
 import * as actions from '../actions';
 
-export function* fetchUserSaga() {
+export function* addRecordSaga(action) {
+  const { date, hoursCoded } = action.payload;
   try {
     yield put(actions.setLoadingState(true));
-    const res = yield axios.get('/api/auth/current_user');
+    yield axios.post('/api/records', { date, hoursCoded });
     yield delay(LOADING_MINIMUM_DURATION);
     yield all([
-      put(actions.setCurrentUser(res.data)),
       put(actions.removeError()),
       put(actions.setLoadingState(false)),
     ]);

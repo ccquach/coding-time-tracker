@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import Aux from '../hoc/Auxiliary';
+
 // #region styles
 const Heading = styled.h4`
   font-size: 2rem;
@@ -47,7 +49,7 @@ const PROVIDERS = [
 
 const Login = () => {
   return (
-    <div className="container">
+    <Aux>
       <Heading>Login with</Heading>
       {PROVIDERS.map(({ name, path, icon, color }) => (
         <div className="row" key={name}>
@@ -61,7 +63,7 @@ const Login = () => {
           </Button>
         </div>
       ))}
-    </div>
+    </Aux>
   );
 };
 

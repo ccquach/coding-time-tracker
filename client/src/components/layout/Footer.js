@@ -13,11 +13,7 @@ const Wrapper = styled.footer`
 const Footer = ({ location, auth }) => (
   <Wrapper className="page-footer transparent">
     <div className="footer-copyright center-align transparent">
-      <div
-        className={`container ${
-          location.pathname === '/' && auth ? text.greyDark : text.greyLight
-        }`}
-      >
+      <div className={`container ${auth ? text.greyDark : text.greyLight}`}>
         &copy; 2018 Cynthia Quach
       </div>
     </div>
