@@ -1,20 +1,65 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
-import Navbar from './Navbar';
-import Sidenav from '../../containers/Layout/Sidenav';
+import getTitleFromPath from '../../utils/getTitleFromPath';
 
-const Wrapper = styled.header`
-  text-transform: uppercase;
-  line-spacing: 1px;
-  font-weight: 300;
-`;
+const Header = ({
+  classes,
+  open,
+  handleDrawerOpen,
+  location: { pathname },
+  auth: { name },
+}) => {
+  return (
+    <AppBar
+      position="absolute"
+      className={classNames(classes.appBar, open && classes.appBarShift)}
+    >
+      <Toolbar disableGutters={!open}>
+        <IconButton
+          color="inherit"
+          aria-label="Open drawer"
+          onClick={handleDrawerOpen}
+          className={classNames(classes.menuButton, open && classes.hide)}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography
+          variant="title"
+          color="inherit"
+          className={classes.grow}
+          noWrap
+        >
+          {pathname === '/' ? 'Dashboard' : getTitleFromPath(pathname)}
+        </Typography>
+        <Typography variant="subheading" color="inherit">
+          Hi, {name}!
+        </Typography>
+        <Button component="a" href="/api/auth/logout" color="inherit">
+          Logout
+        </Button>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
-const Header = () => (
-  <Wrapper>
-    <Navbar />
-    <Sidenav />
-  </Wrapper>
-);
+Header.propTypes = {
+  classes: PropTypes.object.isRequired,
+  open: PropTypes.bool.isRequired,
+  handleDrawerOpen: PropTypes.func.isRequired,
+};
 
-export default Header;
+const mapStateToProps = ({ auth }) => ({
+  auth,
+});
+
+export default withRouter(connect(mapStateToProps)(Header));

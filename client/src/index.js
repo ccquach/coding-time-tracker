@@ -1,7 +1,6 @@
-import 'materialize-css/dist/css/materialize.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './index.css';
-
+import CssBaseline from '@material-ui/core/CssBaseline';
 import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
 
@@ -23,7 +22,9 @@ const store = createStore();
 ReactDOM.render(
   <Provider store={store}>
     <MuiPickersUtilsProvider utils={MomentUtils}>
-      <App />
+      <CssBaseline>
+        <App />
+      </CssBaseline>
     </MuiPickersUtilsProvider>
   </Provider>,
   document.getElementById('root')

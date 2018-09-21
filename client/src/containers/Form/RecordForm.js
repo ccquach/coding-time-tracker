@@ -1,29 +1,36 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import styled from 'styled-components';
 import moment from 'moment';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 import * as actions from '../../store/actions';
-import FormTitle from '../../components/Form/FormTitle';
+import Aux from '../../hoc/Auxiliary';
 import FormField from '../../components/Form/FormField';
 import SubmitButton from '../../components/Form/SubmitButton';
 
-const Display = styled.p`
-  font-size: 7rem;
-  font-weight: 100;
-
-  span:first-child {
-    display: inline-block;
-    margin-right: 0.75rem;
-  }
-
-  span:last-child {
-    font-size: 1.5rem;
-    font-weight: 300;
-  }
-`;
+const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+  },
+  inline: {
+    display: 'inline-block',
+    marginRight: theme.spacing.unit,
+  },
+  controls: {
+    flexDirection: 'column',
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column-reverse',
+    },
+  },
+});
 
 class RecordForm extends Component {
   renderDateField = () => {
@@ -32,47 +39,103 @@ class RecordForm extends Component {
       label: 'Date',
     };
     return (
-      <Field name="date" type="date" component={FormField} options={options} />
+      <Field
+        name="date"
+        type="date"
+        component={FormField}
+        pickerOptions={options}
+      />
     );
   };
 
-  renderRangeSlider = () => (
-    <Field
-      name="hoursCoded"
-      type="range"
-      min={0}
-      max={24}
-      component={FormField}
-    />
-  );
+  renderFormSlider = () => {
+    const options = {
+      step: 1,
+      min: 0,
+      max: 24,
+    };
+    return (
+      <Field
+        name="hoursCoded"
+        type="range"
+        sliderOptions={options}
+        component={FormField}
+        parse={value => +value}
+      />
+    );
+  };
+
+  renderHoursDisplay = () => {
+    const { classes, formValues } = this.props;
+    return (
+      <Aux>
+        {formValues && (
+          <Typography
+            variant="display4"
+            component="span"
+            className={classes.inline}
+            id="hoursCoded"
+          >
+            {formValues.hoursCoded}
+          </Typography>
+        )}
+        <Typography
+          variant="body1"
+          component="span"
+          gutterBottom
+          className={classes.inline}
+        >
+          hrs
+        </Typography>
+      </Aux>
+    );
+  };
 
   submitForm = (values, dispatch) => {
     dispatch(actions.addRecord(values));
   };
 
   render() {
-    const { handleSubmit, formValues, invalid } = this.props;
+    const { classes, handleSubmit, invalid, submitting } = this.props;
     return (
-      <form onSubmit={handleSubmit(this.submitForm)}>
-        <FormTitle>Hours spent smashing the keyboard:</FormTitle>
-        <div className="row">
-          <div className="col s4">
-            <Display>
-              {formValues && <span>{formValues.hoursCoded}</span>}
-              <span>hrs</span>
-            </Display>
-          </div>
-          <div className="col s8">
-            <div className="row">
-              <div className="col s12">{this.renderDateField()}</div>
-            </div>
-            <div className="row">
-              <div className="col s12">{this.renderRangeSlider()}</div>
-            </div>
-          </div>
-        </div>
-        <SubmitButton text="Record it!" disabled={invalid} />
-      </form>
+      <Paper
+        component="form"
+        onSubmit={handleSubmit(this.submitForm)}
+        className={classes.root}
+      >
+        <Typography variant="headline" component="h3" gutterBottom>
+          Hours spent smashing the keyboard:
+        </Typography>
+        <Grid container spacing={16}>
+          <Grid
+            item
+            sm={5}
+            xs={12}
+            container
+            wrap="nowrap"
+            alignItems="baseline"
+          >
+            {this.renderHoursDisplay()}
+          </Grid>
+          <Grid
+            item
+            sm={7}
+            xs={12}
+            container
+            direction="column"
+            spacing={16}
+            className={classes.controls}
+          >
+            <Grid item xs>
+              {this.renderDateField()}
+            </Grid>
+            <Grid item xs>
+              {this.renderFormSlider()}
+            </Grid>
+          </Grid>
+        </Grid>
+        <SubmitButton text="Record it!" disabled={invalid || submitting} />
+      </Paper>
     );
   }
 }
@@ -92,6 +155,10 @@ const validate = ({ date, hoursCoded }) => {
   return errors;
 };
 
+RecordForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
 const mapStateToProps = ({ form }) => ({
   formValues: form.record ? form.record.values || null : null,
 });
@@ -99,16 +166,17 @@ const mapStateToProps = ({ form }) => ({
 RecordForm = reduxForm({
   form: 'record',
   initialValues: {
-    hoursCoded: '0',
+    hoursCoded: 0,
     date: new Date(),
   },
   validate,
   onSubmitSuccess: (result, dispatch, props) => props.history.push('/'),
 })(RecordForm);
 
-export default withRouter(
+RecordForm = withRouter(
   connect(
     mapStateToProps,
     actions
   )(RecordForm)
 );
+export default withStyles(styles)(RecordForm);

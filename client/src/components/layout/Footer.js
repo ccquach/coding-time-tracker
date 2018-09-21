@@ -1,23 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { withRouter } from 'react-router-dom';
-import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
 
-import colors from '../../styles/colors';
-
-const { text } = colors;
-
-const Wrapper = styled.footer`
-  z-index: 1;
-`;
-
-const Footer = ({ location, auth }) => (
-  <Wrapper className="page-footer transparent">
-    <div className="footer-copyright center-align transparent">
-      <div className={`container ${auth ? text.greyDark : text.greyLight}`}>
+const Footer = ({ classes, open, auth }) => {
+  return (
+    <footer
+      className={classnames(
+        classes.footer,
+        !open && auth && classes.footerShift,
+        open && auth && classes.appBarShift
+      )}
+    >
+      <div className={classes.toolbar} />
+      <Typography variant="caption" color="inherit" align="center">
         &copy; 2018 Cynthia Quach
-      </div>
-    </div>
-  </Wrapper>
-);
+      </Typography>
+    </footer>
+  );
+};
+
+Footer.proptypes = {
+  auth: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired,
+  open: PropTypes.bool.isRequired,
+};
 
 export default withRouter(Footer);

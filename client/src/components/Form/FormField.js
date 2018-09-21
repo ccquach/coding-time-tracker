@@ -1,5 +1,19 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { DatePicker } from 'material-ui-pickers';
+import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+
+import FormSlider from './FormSlider';
+
+const styles = theme => ({
+  formControl: {
+    margin: theme.spacing.unit,
+  },
+});
 
 class FormField extends Component {
   renderInput = () => {
@@ -13,35 +27,34 @@ class FormField extends Component {
 
     switch (type) {
       case 'range':
-        const { min, max } = this.props;
+        const { sliderOptions } = this.props;
         return (
-          <input
-            type="range"
-            min={min}
-            max={max}
-            {...input}
+          <FormSlider
             className={isValid}
+            options={sliderOptions}
+            input={input}
           />
         );
       case 'date':
-        const { options } = this.props;
+        const { pickerOptions } = this.props;
         return (
           <DatePicker
             {...input}
             format="MMM DD, YYYY"
             showTodayButton
-            {...options}
+            {...pickerOptions}
             className={isValid}
           />
         );
       case 'text':
       default:
-        return <input type="text" {...input} />;
+        return <Input type="text" {...input} />;
     }
   };
 
   render() {
     const {
+      classes,
       input,
       label,
       meta: { touched, error },
@@ -50,15 +63,22 @@ class FormField extends Component {
     const errorMessage = touched && error ? error : null;
 
     return (
-      <div className="input-field">
+      <FormControl
+        fullWidth
+        className={classes.formControl}
+        aria-describedby="error-text"
+        error={touched && error}
+      >
+        {label && <InputLabel htmlFor={input.name}>{label}</InputLabel>}
         {this.renderInput()}
-        {label && <label htmlFor={input.name}>{label}</label>}
-        <span className="helper-text" data-error={errorMessage}>
-          &nbsp;
-        </span>
-      </div>
+        <FormHelperText id="error-text">{errorMessage}</FormHelperText>
+      </FormControl>
     );
   }
 }
 
-export default FormField;
+FormField.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(FormField);

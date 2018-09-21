@@ -1,81 +1,75 @@
-import M from 'materialize-css';
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import colors from '../styles/colors';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import Hero from '../images/hero.jpg';
 import Login from './Login';
 import Modal from './UI/Modal';
 
-// #region styles
-const Wrapper = styled.div`
-  height: 100vh;
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url(${Hero});
-  background-size: cover;
-  background-position: bottom;
-`;
+const styles = theme => ({
+  header: {
+    height: '100vh',
+    width: '100vw',
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),url(${Hero})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'bottom',
+    fontWeight: 300,
+    color: theme.palette.grey[200],
+  },
+  heading: {
+    textTransform: 'uppercase',
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit,
+  },
+});
 
-const Heading = styled.h3`
-  font-size: 6em;
-  font-weight: 300;
-  text-transform: uppercase;
-  text-align: center;
-  text-shadow: 0 0 0.75px #000;
-  letter-spacing: 0.5px;
-  line-height: 1;
-  margin: 0 auto;
-`;
+const Landing = ({ classes }) => (
+  <Grid
+    container
+    direction="column"
+    justify="center"
+    alignItems="center"
+    component="header"
+    className={classes.header}
+  >
+    <Typography
+      component="h1"
+      variant="display3"
+      gutterBottom
+      color="inherit"
+      align="center"
+      className={classes.heading}
+    >
+      Coding Time Tracker
+    </Typography>
+    <Typography
+      component="h2"
+      variant="headline"
+      gutterBottom
+      color="inherit"
+      align="center"
+    >
+      Set goals. Track progress. Commit to Learning.
+    </Typography>
+    <Modal
+      title="Login to start tracking"
+      buttonText="Start tracking now"
+      buttonIcon={<ChevronRightIcon className={classes.rightIcon} />}
+    >
+      <Login />
+    </Modal>
+  </Grid>
+);
 
-const MainHeading = styled.span`
-  display: block;
-  margin-bottom: 2rem;
-`;
+Landing.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
-const SubHeading = styled.span`
-  display: block;
-  margin-bottom: 2.5rem;
-  text-transform: none;
-  font-size: 2.5rem;
-`;
-// #endregion
-// TODO: add pulse animation on button hover
-
-class Landing extends Component {
-  componentDidMount = () => {
-    M.Modal.init(document.querySelector('.modal'));
-  };
-
-  render() {
-    const { text, base } = colors;
-    return (
-      <Wrapper className="valign-wrapper">
-        <Heading className={text.greyLight}>
-          <MainHeading>Coding Time Tracker</MainHeading>
-          <SubHeading>
-            Set goals. Track progress. Commit to Learning.
-          </SubHeading>
-          <a
-            href="#login"
-            className={`modal-trigger waves-effect waves-light btn btn-large ${
-              base.secondary
-            }`}
-          >
-            {/* TODO: fix hover effect loss on button default color change */}
-            <i className="material-icons right">chevron_right</i>
-            Start tracking now
-          </a>
-          <Modal id="login">
-            <Login />
-          </Modal>
-        </Heading>
-      </Wrapper>
-    );
-  }
-}
-
-export default Landing;
+export default withStyles(styles)(Landing);

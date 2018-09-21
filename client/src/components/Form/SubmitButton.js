@@ -1,17 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
-import colors from '../../styles/colors';
+const styles = theme => ({
+  button: {
+    marginTop: theme.spacing.unit * 3,
+  },
+});
 
-const { base } = colors;
-
-const SubmitButton = ({ text, disabled }) => (
-  <button
-    className={`waves-effect waves-light btn ${base.secondary}`}
+const SubmitButton = ({ classes, text, disabled }) => (
+  <Button
+    variant="contained"
+    color="secondary"
+    className={classes.button}
     type="submit"
     disabled={disabled}
   >
     {text}
-  </button>
+  </Button>
 );
 
-export default SubmitButton;
+SubmitButton.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(SubmitButton);

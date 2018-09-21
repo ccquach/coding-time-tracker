@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
+import Grid from '@material-ui/core/Grid';
 
 class Dashboard extends Component {
   render() {
-    return <div>Dashboard</div>;
+    return (
+      <Grid item xs>
+        Dashboard
+      </Grid>
+    );
   }
 }
 
