@@ -1,6 +1,6 @@
-import * as types from '../types';
+import * as actionTypes from '../types';
 
 export const addRecord = values => ({
-  type: types.ADD_RECORD,
+  type: actionTypes.ADD_RECORD,
   payload: values,
 });

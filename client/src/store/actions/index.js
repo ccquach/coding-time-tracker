@@ -1,4 +1,4 @@
 export { setLoadingState } from './loading';
-export { addError, removeError } from './error';
+export { addFlash, removeFlash } from './flash';
 export { fetchCurrentUser, setCurrentUser } from './auth';
 export { addRecord } from './records';

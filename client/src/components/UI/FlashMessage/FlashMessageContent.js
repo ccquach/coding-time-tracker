@@ -45,7 +45,7 @@ const styles = theme => ({
   },
 });
 
-const SnackbarContentWrapper = props => {
+const FlashMessageContent = props => {
   const { classes, className, message, onClose, variant, ...other } = props;
   const Icon = variantIcon[variant];
 
@@ -75,7 +75,7 @@ const SnackbarContentWrapper = props => {
   );
 };
 
-SnackbarContentWrapper.propTypes = {
+FlashMessageContent.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   message: PropTypes.node,
@@ -83,4 +83,4 @@ SnackbarContentWrapper.propTypes = {
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
 };
 
-export default withStyles(styles)(SnackbarContentWrapper);
+export default withStyles(styles)(FlashMessageContent);

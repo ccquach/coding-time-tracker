@@ -10,7 +10,7 @@ import Header from '../../components/Layout/Header';
 import SideDrawer from '../../components/Layout/SideDrawer';
 import Footer from '../../components/Layout/Footer';
 import ActionButton from '../../components/UI/ActionButton';
-import ErrorSnackbar from '../UI/ErrorSnackbar';
+import FlashMessage from '../../components/UI/FlashMessage/FlashMessage';
 
 const drawerWidth = 240;
 const minDrawerWidth = 72;
@@ -111,9 +111,18 @@ class Layout extends Component {
     this.setState({ open: false });
   };
 
+  renderFlashMessage = () => {
+    const { flash } = this.props;
+    if (flash) {
+      const { type, message } = flash;
+      return <FlashMessage variant={type.toLowerCase()} message={message} />;
+    }
+    return null;
+  };
+
   render() {
     const { open } = this.state;
-    const { children, auth, error, classes, theme } = this.props;
+    const { children, auth, classes, theme } = this.props;
 
     return (
       <div className={classes.root}>
@@ -136,7 +145,7 @@ class Layout extends Component {
           <div className={classes.toolbar} />
           <Grid container>{children}</Grid>
           {auth && <ActionButton />}
-          {error.message ? <ErrorSnackbar /> : null}
+          {this.renderFlashMessage()}
         </main>
         <Footer auth={auth} classes={classes} open={open} />
       </div>
@@ -149,9 +158,9 @@ Layout.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ auth, error }) => ({
+const mapStateToProps = ({ auth, flash }) => ({
   auth,
-  error,
+  flash,
 });
 
 Layout = connect(mapStateToProps)(Layout);

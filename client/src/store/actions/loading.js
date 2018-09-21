@@ -1,6 +1,6 @@
-import * as types from '../types';
+import * as actionTypes from '../types';
 
 export const setLoadingState = isFetching => ({
-  type: types.SET_LOADING_STATE,
+  type: actionTypes.SET_LOADING_STATE,
   payload: isFetching,
 });

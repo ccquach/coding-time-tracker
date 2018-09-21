@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import { LOADING_MINIMUM_DURATION } from './constants';
 import * as actions from '../actions';
+import * as flashTypes from '../types/flash';
 
 export function* addRecordSaga(action) {
   const { date, hoursCoded } = action.payload;
@@ -12,12 +13,12 @@ export function* addRecordSaga(action) {
     yield axios.post('/api/records', { date, hoursCoded });
     yield delay(LOADING_MINIMUM_DURATION);
     yield all([
-      put(actions.removeError()),
       put(actions.setLoadingState(false)),
+      put(actions.addFlash(flashTypes.SUCCESS, 'Hours successfully recorded!')),
     ]);
   } catch (err) {
     yield all([
-      put(actions.addError(err.message)),
+      put(actions.addFlash(flashTypes.ERROR, err.message)),
       put(actions.setLoadingState(false)),
     ]);
   }

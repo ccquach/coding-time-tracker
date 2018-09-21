@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withStyles } from '@material-ui/core/styles';
 
-import SnackbarContentWrapper from '../../components/UI/SnackbarContentWrapper';
+import FlashMessageContent from './FlashMessageContent';
 
 const styles = theme => ({
   margin: {
@@ -12,7 +11,7 @@ const styles = theme => ({
   },
 });
 
-class ErrorSnackbar extends Component {
+class FlashMessage extends Component {
   state = {
     open: true,
   };
@@ -30,7 +29,7 @@ class ErrorSnackbar extends Component {
   };
 
   render() {
-    const { classes, error } = this.props;
+    const { classes, variant, message } = this.props;
 
     return (
       <Snackbar
@@ -43,10 +42,10 @@ class ErrorSnackbar extends Component {
         autoHideDuration={6000}
         onClose={this.handleClose}
       >
-        <SnackbarContentWrapper
-          variant="error"
+        <FlashMessageContent
+          variant={variant}
           className={classes.margin}
-          message={error.message}
+          message={message}
           onClose={this.handleClose}
         />
       </Snackbar>
@@ -54,13 +53,10 @@ class ErrorSnackbar extends Component {
   }
 }
 
-ErrorSnackbar.propTypes = {
+FlashMessage.propTypes = {
   classes: PropTypes.object.isRequired,
+  variant: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({ error }) => ({
-  error,
-});
-
-ErrorSnackbar = connect(mapStateToProps)(ErrorSnackbar);
-export default withStyles(styles)(ErrorSnackbar);
+export default withStyles(styles)(FlashMessage);
