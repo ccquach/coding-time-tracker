@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
-const requireLogin = require('../middleware/requireLogin');
-const { recordHoursCoded } = require('../handlers/records');
+const { recordHoursCoded, getHoursCoded } = require('../handlers/records');
 
-router.post('/', requireLogin, recordHoursCoded);
+router.get('/', getHoursCoded);
+router.post('/', recordHoursCoded);
 
 module.exports = router;

@@ -28,13 +28,14 @@ app.use(passport.session());
 
 // ROUTES
 const { notFoundHandler, internalServerHandler } = require('./handlers/error');
+const requireLogin = require('./middleware/requireLogin');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const recordsRoutes = require('./routes/records');
 
 app.use('/api/auth', authRoutes);
-app.use('/api/user', userRoutes);
-app.use('/api/records', recordsRoutes);
+app.use('/api/user', requireLogin, userRoutes);
+app.use('/api/records', requireLogin, recordsRoutes);
 app.use(notFoundHandler);
 
 // ERROR HANDLER
