@@ -18,7 +18,7 @@ export function* addRecordSaga(action) {
     ]);
   } catch (err) {
     yield all([
-      put(actions.addFlash(flashTypes.ERROR, err.message)),
+      put(actions.addFlash(flashTypes.ERROR, err.response.data.error.message)),
       put(actions.setLoadingState(false)),
     ]);
   }

@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 import getTitleFromPath from '../../utils/getTitleFromPath';
+import GoalForm from '../../containers/Form/GoalForm';
 
 const Header = ({
   classes,
@@ -41,6 +42,7 @@ const Header = ({
         >
           {pathname === '/' ? 'Dashboard' : getTitleFromPath(pathname)}
         </Typography>
+        <GoalForm />
         <Typography variant="subheading" color="inherit">
           Hi, {name}!
         </Typography>

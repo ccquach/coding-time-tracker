@@ -11,7 +11,10 @@ exports.logout = (req, res, next) => {
     req.logout();
     res.redirect('/');
   } catch (err) {
-    return next(err);
+    return next({
+      status: 400,
+      message: 'Failed to logout.',
+    });
   }
 };
 
@@ -23,6 +26,9 @@ exports.getCurrentUser = (req, res, next) => {
   try {
     res.send(req.user);
   } catch (err) {
-    return next(err);
+    return next({
+      status: 400,
+      message: 'Unable to get current user.',
+    });
   }
 };

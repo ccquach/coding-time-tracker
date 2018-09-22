@@ -27,16 +27,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ROUTES
-const errorHandlers = require('./handlers/error');
+const { notFoundHandler, internalServerHandler } = require('./handlers/error');
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const recordsRoutes = require('./routes/records');
 
 app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
 app.use('/api/records', recordsRoutes);
-app.use(errorHandlers.notFoundHandler);
+app.use(notFoundHandler);
 
 // ERROR HANDLER
-app.use(errorHandlers.internalServerHandler);
+app.use(internalServerHandler);
 
 app.listen(PORT, () =>
   console.log(`Serving coding time tracker app on port ${PORT}`)

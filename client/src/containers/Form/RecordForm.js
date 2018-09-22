@@ -10,6 +10,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import * as actions from '../../store/actions';
+import validateHours from '../../utils/validateHours';
 import Aux from '../../hoc/Auxiliary';
 import FormField from '../../components/Form/FormField';
 import SubmitButton from '../../components/Form/SubmitButton';
@@ -142,16 +143,8 @@ class RecordForm extends Component {
 
 const validate = ({ date, hoursCoded }) => {
   const errors = {};
-
   if (!moment(date).toDate()) errors.date = 'Invalid date';
-
-  if (hoursCoded < 0)
-    errors.hoursCoded = 'Negative productivity?! I refuse to believe it!';
-  if (hoursCoded > 24)
-    errors.hoursCoded =
-      'Definition of hard worker -- work more hours than there are in a day! *applauds*';
-  if (!hoursCoded) errors.hoursCoded = 'Cannot be empty.';
-
+  errors.hoursCoded = validateHours(hoursCoded);
   return errors;
 };
 

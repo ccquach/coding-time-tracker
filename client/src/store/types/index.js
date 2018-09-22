@@ -6,4 +6,6 @@ export const REMOVE_FLASH = 'REMOVE_FLASH';
 export const FETCH_CURRENT_USER = 'FETCH_CURRENT_USER';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 
+export const SET_DAILY_GOAL = 'SET_DAILY_GOAL';
+
 export const ADD_RECORD = 'ADD_RECORD';

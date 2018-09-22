@@ -32,6 +32,9 @@ exports.recordHoursCoded = async (req, res, next) => {
     ).exec();
     res.status(200).json(record);
   } catch (err) {
-    return next(err);
+    return next({
+      status: 400,
+      message: err.message,
+    });
   }
 };

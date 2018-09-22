@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Snackbar from '@material-ui/core/Snackbar';
 import { withStyles } from '@material-ui/core/styles';
 
+import * as actions from '../../../store/actions';
 import FlashMessageContent from './FlashMessageContent';
 
 const styles = theme => ({
@@ -11,13 +13,10 @@ const styles = theme => ({
   },
 });
 
+// TODO: implement consecutive snackbars
 class FlashMessage extends Component {
   state = {
     open: true,
-  };
-
-  handleClick = () => {
-    this.setState({ open: true });
   };
 
   handleClose = (event, reason) => {
@@ -29,7 +28,7 @@ class FlashMessage extends Component {
   };
 
   render() {
-    const { classes, variant, message } = this.props;
+    const { classes, variant, message, removeFlash } = this.props;
 
     return (
       <Snackbar
@@ -41,6 +40,7 @@ class FlashMessage extends Component {
         open={this.state.open}
         autoHideDuration={6000}
         onClose={this.handleClose}
+        onExited={removeFlash}
       >
         <FlashMessageContent
           variant={variant}
@@ -59,4 +59,8 @@ FlashMessage.propTypes = {
   message: PropTypes.string.isRequired,
 };
 
+FlashMessage = connect(
+  null,
+  actions
+)(FlashMessage);
 export default withStyles(styles)(FlashMessage);
