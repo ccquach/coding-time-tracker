@@ -18,9 +18,9 @@ const minDrawerWidth = 72;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: '100vh',
+    minHeight: '100vh',
     zIndex: 1,
-    overflow: 'hidden',
+    overflowX: 'hidden',
     position: 'relative',
     display: 'flex',
   },

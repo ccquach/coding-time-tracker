@@ -10,9 +10,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import MyLocationIcon from '@material-ui/icons/MyLocation';
 
 const styles = theme => ({
-  root: {
-    height: 380,
-  },
   speedDial: {
     position: 'absolute',
     bottom: theme.spacing.unit * 2,

@@ -47,14 +47,13 @@ exports.getHoursCoded = async (req, res, next) => {
 
     // get data for today
     const { todayDateStart, todayDateEnd } = getCurrentDateRange.day();
-    const hoursForToday =
-      (await Record.findOne({
-        _user: userId,
-        date: {
-          $gte: new Date(todayDateStart),
-          $lte: new Date(todayDateEnd),
-        },
-      })).hoursCoded || 0;
+    const hoursForToday = await querySumForDateRange(
+      Record,
+      'hoursCoded',
+      userId,
+      todayDateStart,
+      todayDateEnd
+    );
 
     // aggregate data for week
     const {

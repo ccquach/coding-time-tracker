@@ -1,7 +1,11 @@
 import * as actionTypes from '../types';
 
-export default (state, action) => {
+export default (state = null, action) => {
   switch (action.type) {
+    case actionTypes.SET_HOURS_RECORDS:
+      return { ...state, ...action.payload.hoursCoded };
+    case actionTypes.FETCH_HOURS_RECORDS_FAIL:
+      return false;
     default:
       return state;
   }

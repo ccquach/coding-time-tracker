@@ -23,3 +23,15 @@ export function* addRecordSaga(action) {
     ]);
   }
 }
+
+export function* fetchHoursRecordsSaga() {
+  try {
+    const res = yield axios.get('/api/records');
+    yield put(actions.setHoursRecords(res.data));
+  } catch (err) {
+    yield all([
+      put(actions.fetchHoursRecordsFail()),
+      put(actions.addFlash(flashTypes.ERROR, err.response.data.error.message)),
+    ]);
+  }
+}

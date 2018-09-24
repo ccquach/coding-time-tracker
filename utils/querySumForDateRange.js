@@ -27,5 +27,5 @@ module.exports = async (Model, field, id, dateStart, dateEnd) => {
       },
     },
   ]);
-  return sumForDateRange[0].total;
+  return sumForDateRange[0] ? sumForDateRange[0].total : 0;
 };

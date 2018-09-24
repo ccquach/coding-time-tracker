@@ -6,7 +6,7 @@ import { LOADING_MINIMUM_DURATION } from './constants';
 import * as actions from '../actions';
 import * as flashTypes from '../types/flash';
 
-export function* fetchUserSaga() {
+export function* fetchCurrentUserSaga() {
   try {
     yield put(actions.setLoadingState(true));
     const res = yield axios.get('/api/auth/current_user');
