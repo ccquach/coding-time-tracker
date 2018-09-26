@@ -81,12 +81,24 @@ exports.getHoursCoded = async (req, res, next) => {
       currentMonthDateEnd
     );
 
+    // get records for current month
+    const currentMonthRecords = await Record.find({
+      _user: req.user.id,
+      date: {
+        $gte: currentMonthDateStart,
+        $lte: currentMonthDateEnd,
+      },
+    })
+      .sort({ date: -1 })
+      .exec();
+
     res.status(200).json({
       hoursCoded: {
         today: hoursForToday,
         week: hoursForWeek,
         month: hoursForMonth,
       },
+      data: currentMonthRecords,
     });
   } catch (err) {
     return next({

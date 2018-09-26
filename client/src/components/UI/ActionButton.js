@@ -11,7 +11,7 @@ import MyLocationIcon from '@material-ui/icons/MyLocation';
 
 const styles = theme => ({
   speedDial: {
-    position: 'absolute',
+    position: 'fixed',
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 3,
   },

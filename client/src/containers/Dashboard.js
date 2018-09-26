@@ -8,8 +8,10 @@ import blueGrey from '@material-ui/core/colors/blueGrey';
 import Paper from '@material-ui/core/Paper';
 
 import * as actions from '../store/actions';
+import Aux from '../hoc/Auxiliary';
 import Spinner from '../components/UI/Spinner';
 import DonutPieChart from '../components/Charts/DonutPieChart';
+import RecordsTable from '../components/Charts/RecordsTable';
 
 const styles = theme => ({
   root: {
@@ -52,18 +54,22 @@ class Dashboard extends Component {
   getHoursCoded = () => {
     const {
       auth: { dailyGoal },
-      records,
+      records: { hoursCoded },
     } = this.props;
-    return Object.keys(records).map((key, i) => ({
+    return Object.keys(hoursCoded).map((key, i) => ({
       name: key,
-      value: records[key],
+      value: hoursCoded[key],
       goal: dailyGoal * MULTIPLIERS[key],
       label: LABELS[i],
     }));
   };
 
   renderContent = () => {
-    const { classes, records } = this.props;
+    const {
+      classes,
+      records,
+      auth: { dailyGoal },
+    } = this.props;
     switch (records) {
       case null:
         return <Spinner />;
@@ -75,14 +81,17 @@ class Dashboard extends Component {
         );
       case records:
         return (
-          <Paper className={classes.root} elevation={2}>
-            <Typography variant="title" component="h3">
-              Progress Overview
-            </Typography>
-            <Grid container className={classes.grid}>
-              {this.renderPieCharts()}
-            </Grid>
-          </Paper>
+          <Aux>
+            <Paper className={classes.root} elevation={2}>
+              <Typography variant="title" component="h3">
+                Progress Overview
+              </Typography>
+              <Grid container className={classes.grid}>
+                {this.renderPieCharts()}
+              </Grid>
+            </Paper>
+            <RecordsTable data={records.data} dailyGoal={dailyGoal} />
+          </Aux>
         );
       default:
         return null;

@@ -9,9 +9,9 @@ export const fetchHoursRecords = () => ({
   type: actionTypes.FETCH_HOURS_RECORDS,
 });
 
-export const setHoursRecords = hoursCoded => ({
+export const setHoursRecords = data => ({
   type: actionTypes.SET_HOURS_RECORDS,
-  payload: hoursCoded,
+  payload: data,
 });
 
 export const fetchHoursRecordsFail = () => ({

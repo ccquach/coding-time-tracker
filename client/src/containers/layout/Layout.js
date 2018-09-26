@@ -84,7 +84,7 @@ const styles = theme => ({
   footer: {
     position: 'absolute',
     bottom: 0,
-    margin: '10px 0',
+    marginBottom: theme.spacing.unit * 3,
     width: '100%',
     color: grey[500],
   },
