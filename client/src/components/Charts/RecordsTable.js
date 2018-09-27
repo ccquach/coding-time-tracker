@@ -16,12 +16,8 @@ import green from '@material-ui/core/colors/green';
 const styles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing.unit * 3,
     marginBottom: theme.spacing.unit * 5,
     overflowX: 'auto',
-  },
-  table: {
-    minWidth: 700,
   },
   completed: {
     color: green[500],
@@ -45,7 +41,7 @@ const RecordsTable = ({ classes, data, dailyGoal }) => {
 
   return (
     <Paper className={classes.root}>
-      <Table className={classes.table}>
+      <Table>
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>

@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PieChart, Pie, Cell, Label } from 'recharts';
+import {
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Label,
+  Tooltip,
+} from 'recharts';
 import blueGrey from '@material-ui/core/colors/blueGrey';
 import { withTheme } from '@material-ui/core/styles';
 
@@ -22,7 +29,10 @@ const renderCustomizedLabel = ({ viewBox: { cx, cy }, text }) => (
   </text>
 );
 
-const DonutPieChart = ({ theme: { palette }, data: { name, value, goal } }) => {
+const DonutPieChart = ({
+  theme: { palette, typography },
+  data: { name, value, goal },
+}) => {
   const pieData = [{ name, value }];
   pieData.push({
     name: 'remaining',
@@ -31,32 +41,40 @@ const DonutPieChart = ({ theme: { palette }, data: { name, value, goal } }) => {
 
   const pctCompleted = Math.round((value / goal) * 100);
 
+  const textStyles = {
+    fontFamily: typography.fontFamily,
+    fontSize: typography.fontSize,
+  };
+
   return (
-    <PieChart width={250} height={250}>
-      <Pie
-        data={pieData}
-        dataKey="value"
-        cx="50%"
-        cy="50%"
-        outerRadius={100}
-        innerRadius={85}
-        startAngle={90}
-        endAngle={-270}
-      >
-        {pieData.map((entry, index) => (
-          <Cell
-            key={`cell-${entry.name}-${index}`}
-            fill={index === 0 ? palette.secondary.main : palette.grey[200]}
+    <ResponsiveContainer width="100%" height={250}>
+      <PieChart>
+        <Pie
+          data={pieData}
+          dataKey="value"
+          cx="50%"
+          cy="50%"
+          outerRadius={100}
+          innerRadius={85}
+          startAngle={90}
+          endAngle={-270}
+        >
+          {pieData.map((entry, index) => (
+            <Cell
+              key={`cell-${entry.name}-${index}`}
+              fill={index === 0 ? palette.secondary.main : palette.grey[200]}
+            />
+          ))}
+          <Label
+            width={30}
+            position="center"
+            content={renderCustomizedLabel}
+            text={pctCompleted}
           />
-        ))}
-        <Label
-          width={30}
-          position="center"
-          content={renderCustomizedLabel}
-          text={pctCompleted}
-        />
-      </Pie>
-    </PieChart>
+        </Pie>
+        <Tooltip itemStyle={textStyles} />
+      </PieChart>
+    </ResponsiveContainer>
   );
 };
 

@@ -5,22 +5,18 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import blueGrey from '@material-ui/core/colors/blueGrey';
-import Paper from '@material-ui/core/Paper';
 
 import * as actions from '../store/actions';
-import Aux from '../hoc/Auxiliary';
 import Spinner from '../components/UI/Spinner';
+import ChartContainer from '../components/Charts/ChartContainer';
 import DonutPieChart from '../components/Charts/DonutPieChart';
+import TrendChart from '../components/Charts/TrendChart';
 import RecordsTable from '../components/Charts/RecordsTable';
 
 const styles = theme => ({
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
-    margin: '0 auto',
-  },
   grid: {
+    minWidth: 700,
+    margin: '0 auto',
     [theme.breakpoints.up('lg')]: {
       width: 1140,
     },
@@ -81,29 +77,28 @@ class Dashboard extends Component {
         );
       case records:
         return (
-          <Aux>
-            <Paper className={classes.root} elevation={2}>
-              <Typography variant="title" component="h3">
-                Progress Overview
-              </Typography>
-              <Grid container className={classes.grid}>
-                {this.renderPieCharts()}
-              </Grid>
-            </Paper>
+          <Grid className={classes.grid}>
+            <ChartContainer title="Progress Overview">
+              <Grid container>{this.renderPieCharts()}</Grid>
+            </ChartContainer>
+            <ChartContainer title="Trend Analysis">
+              <TrendChart data={records.data} />
+            </ChartContainer>
             <RecordsTable data={records.data} dailyGoal={dailyGoal} />
-          </Aux>
+          </Grid>
         );
       default:
         return null;
     }
   };
 
+  // TODO: implement carousel for mobile view (mobile stepper?)
   renderPieCharts = () => {
     return this.getHoursCoded().map(obj => (
       <Grid
         item
         xs={12}
-        md={4}
+        sm={4}
         key={obj.name}
         className={this.props.classes.item}
         container
