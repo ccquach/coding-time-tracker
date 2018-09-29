@@ -19,6 +19,9 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 5,
     overflowX: 'auto',
   },
+  table: {
+    minWidth: 505,
+  },
   completed: {
     color: green[500],
   },
@@ -41,7 +44,7 @@ const RecordsTable = ({ classes, data, dailyGoal }) => {
 
   return (
     <Paper className={classes.root}>
-      <Table>
+      <Table className={classes.table}>
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>

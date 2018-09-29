@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
   progress: {
@@ -10,7 +11,11 @@ const styles = theme => ({
 });
 
 const Spinner = ({ classes }) => (
-  <CircularProgress className={classes.progress} size={50} />
+  <Grid container justify="center" alignItems="center">
+    <Grid item>
+      <CircularProgress className={classes.progress} size={50} />
+    </Grid>
+  </Grid>
 );
 
 Spinner.propTypes = {

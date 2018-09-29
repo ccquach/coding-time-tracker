@@ -47,15 +47,15 @@ const DonutPieChart = ({
   };
 
   return (
-    <ResponsiveContainer width="100%" height={250}>
+    <ResponsiveContainer width="99%" height={250}>
       <PieChart>
         <Pie
           data={pieData}
           dataKey="value"
           cx="50%"
           cy="50%"
-          outerRadius={100}
-          innerRadius={85}
+          outerRadius="80%"
+          innerRadius="70%"
           startAngle={90}
           endAngle={-270}
         >

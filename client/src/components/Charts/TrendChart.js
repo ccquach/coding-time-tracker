@@ -52,7 +52,7 @@ const TrendChart = ({ data, theme: { palette, typography } }) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={250}>
+    <ResponsiveContainer width="99%" height={250}>
       <AreaChart
         data={compileData(data)}
         margin={{ top: 10, right: 30, left: 0, bottom: 0 }}

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import grey from '@material-ui/core/colors/grey';
 
 import Aux from '../../hoc/Auxiliary';
@@ -74,6 +73,7 @@ const styles = theme => ({
     ...theme.mixins.toolbar,
   },
   content: {
+    minWidth: 0, // necessary to allow dashboard table parent to shrink beyond table min width
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
@@ -95,6 +95,11 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+  },
+  greeting: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
 });
 
@@ -143,7 +148,7 @@ class Layout extends Component {
         )}
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Grid container>{children}</Grid>
+          {children}
           {auth && <ActionButton />}
           {this.renderFlashMessage()}
         </main>
