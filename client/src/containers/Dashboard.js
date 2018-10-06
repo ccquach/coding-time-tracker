@@ -89,7 +89,25 @@ class Dashboard extends Component {
 
   // TODO: implement carousel for mobile view (mobile stepper?)
   renderPieCharts = () => {
-    const { classes } = this.props;
+    const {
+      classes,
+      auth: { dailyGoal },
+    } = this.props;
+
+    if (!dailyGoal) {
+      return (
+        <Typography
+          variant="body2"
+          component="p"
+          align="center"
+          color="secondary"
+          gutterBottom
+        >
+          Set a daily goal to begin tracking!
+        </Typography>
+      );
+    }
+
     return this.getHoursCoded().map(obj => (
       <Grid
         item
