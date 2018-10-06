@@ -41,6 +41,18 @@ app.use(notFoundHandler);
 // ERROR HANDLER
 app.use(internalServerHandler);
 
+// PRODUCTION CONFIG
+if (process.env.NODE_ENV === 'production') {
+  // Serve up production assets (js/css files)
+  app.use(express.static('client/build'));
+
+  // Serve up index.html if route unrecognized
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 app.listen(PORT, () =>
   console.log(`Serving coding time tracker app on port ${PORT}`)
 );
