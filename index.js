@@ -36,10 +36,6 @@ const recordsRoutes = require('./routes/records');
 app.use('/api/auth', authRoutes);
 app.use('/api/user', requireLogin, userRoutes);
 app.use('/api/records', requireLogin, recordsRoutes);
-app.use(notFoundHandler);
-
-// ERROR HANDLER
-app.use(internalServerHandler);
 
 // PRODUCTION CONFIG
 if (process.env.NODE_ENV === 'production') {
@@ -52,6 +48,10 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
+
+// ERROR HANDLER
+app.use(notFoundHandler);
+app.use(internalServerHandler);
 
 app.listen(PORT, () =>
   console.log(`Serving coding time tracker app on port ${PORT}`)
