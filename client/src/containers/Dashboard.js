@@ -17,7 +17,7 @@ import RecordsTable from '../components/Charts/RecordsTable';
 
 const styles = theme => ({
   grid: {
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up('md')]: {
       width: 1140,
       margin: '0 auto',
     },
