@@ -67,7 +67,7 @@ class FormField extends Component {
         fullWidth
         className={classes.formControl}
         aria-describedby="error-text"
-        error={touched && error}
+        error={touched && !!error}
       >
         {label && <InputLabel htmlFor={input.name}>{label}</InputLabel>}
         {this.renderInput()}
