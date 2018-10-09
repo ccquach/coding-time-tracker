@@ -34,7 +34,8 @@ const Header = ({
           <MenuIcon />
         </IconButton>
         <Typography
-          variant="title"
+          variant="h6"
+          component="h2"
           color="inherit"
           className={classes.grow}
           noWrap
@@ -42,7 +43,7 @@ const Header = ({
           {pathname === '/' ? 'Dashboard' : getTitleFromPath(pathname)}
         </Typography>
         <Typography
-          variant="subheading"
+          variant="subtitle1"
           color="inherit"
           className={classes.greeting}
         >

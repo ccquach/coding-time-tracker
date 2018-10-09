@@ -52,7 +52,7 @@ class GoalForm extends Component {
         onSubmit={this.handleSubmit}
         className={classes.formControl}
       >
-        <Typography variant="headline" component="label" htmlFor="dailyGoal">
+        <Typography variant="h5" component="label" htmlFor="dailyGoal">
           <span role="img" aria-label="rocket ship icon">
             &#128640;
           </span>{' '}

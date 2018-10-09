@@ -68,7 +68,7 @@ class Modal extends Component {
             disableTypography
             className={classes.title}
           >
-            <Typography variant="title" color="inherit" align="center">
+            <Typography variant="subtitle2" color="inherit" align="center">
               {title}
             </Typography>
           </DialogTitle>

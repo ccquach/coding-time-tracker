@@ -88,11 +88,12 @@ const Login = ({ classes }) => (
           classes={{ containedPrimary: classes[name.toLowerCase()] }}
         >
           <Grid container justify="flex-start" alignItems="center">
-            <Typography variant="title" component="span" color="inherit">
+            <Typography variant="button" component="span" color="inherit">
               <i className={`fab fa-${icon}`} aria-hidden="true" />
             </Typography>
             <Typography
-              variant="subheading"
+              variant="button"
+              component="span"
               color="inherit"
               className={classes.text}
             >

@@ -16,7 +16,7 @@ const styles = theme => ({
 
 const ChartContainer = ({ title, children, classes }) => (
   <Paper className={classes.root}>
-    <Typography variant="subheading" component="h3" gutterBottom>
+    <Typography variant="subtitle1" component="h3" gutterBottom>
       {title}
     </Typography>
     {children}

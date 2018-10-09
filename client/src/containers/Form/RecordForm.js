@@ -20,6 +20,7 @@ const styles = theme => ({
     ...theme.mixins.gutters(),
     paddingTop: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+    maxWidth: 520,
   },
   inline: {
     display: 'inline-block',
@@ -72,7 +73,7 @@ class RecordForm extends Component {
       <Aux>
         {formValues && (
           <Typography
-            variant="display4"
+            variant="h1"
             component="span"
             className={classes.inline}
             id="hoursCoded"
@@ -99,44 +100,48 @@ class RecordForm extends Component {
   render() {
     const { classes, handleSubmit, invalid, submitting } = this.props;
     return (
-      <Paper
-        component="form"
-        onSubmit={handleSubmit(this.submitForm)}
-        className={classes.root}
-      >
-        <Typography variant="headline" component="h3" gutterBottom>
-          Hours spent smashing the keyboard:
-        </Typography>
-        <Grid container spacing={16}>
-          <Grid
-            item
-            sm={5}
-            xs={12}
-            container
-            wrap="nowrap"
-            alignItems="baseline"
+      <Grid container>
+        <Grid item xs={12} sm={8}>
+          <Paper
+            component="form"
+            onSubmit={handleSubmit(this.submitForm)}
+            className={classes.root}
           >
-            {this.renderHoursDisplay()}
-          </Grid>
-          <Grid
-            item
-            sm={7}
-            xs={12}
-            container
-            direction="column"
-            spacing={16}
-            className={classes.controls}
-          >
-            <Grid item xs>
-              {this.renderDateField()}
+            <Typography variant="h5" component="h3" gutterBottom>
+              Hours spent smashing the keyboard:
+            </Typography>
+            <Grid container spacing={16}>
+              <Grid
+                item
+                sm={5}
+                xs={12}
+                container
+                wrap="nowrap"
+                alignItems="baseline"
+              >
+                {this.renderHoursDisplay()}
+              </Grid>
+              <Grid
+                item
+                sm={7}
+                xs={12}
+                container
+                direction="column"
+                spacing={16}
+                className={classes.controls}
+              >
+                <Grid item xs>
+                  {this.renderDateField()}
+                </Grid>
+                <Grid item xs>
+                  {this.renderFormSlider()}
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs>
-              {this.renderFormSlider()}
-            </Grid>
-          </Grid>
+            <SubmitButton text="Record it!" disabled={invalid || submitting} />
+          </Paper>
         </Grid>
-        <SubmitButton text="Record it!" disabled={invalid || submitting} />
-      </Paper>
+      </Grid>
     );
   }
 }

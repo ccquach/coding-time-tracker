@@ -18,7 +18,7 @@ import RecordsTable from '../components/Charts/RecordsTable';
 const styles = theme => ({
   grid: {
     [theme.breakpoints.up('md')]: {
-      width: 1140,
+      maxWidth: 1140,
       margin: '0 auto',
     },
   },
@@ -121,7 +121,7 @@ class Dashboard extends Component {
       >
         <DonutPieChart data={obj} />
         <Typography
-          variant="subheading"
+          variant="subtitle1"
           component="span"
           align="center"
           className={classes.label}

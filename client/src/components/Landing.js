@@ -19,11 +19,14 @@ const styles = theme => ({
     backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),url(${Hero})`,
     backgroundSize: 'cover',
     backgroundPosition: 'bottom',
-    fontWeight: 300,
     color: theme.palette.grey[200],
   },
   heading: {
     textTransform: 'uppercase',
+    fontWeight: 300,
+  },
+  subheading: {
+    fontWeight: 400,
   },
   rightIcon: {
     marginLeft: theme.spacing.unit,
@@ -41,7 +44,7 @@ const Landing = ({ classes }) => (
   >
     <Typography
       component="h1"
-      variant="display3"
+      variant="h3"
       gutterBottom
       color="inherit"
       align="center"
@@ -51,10 +54,11 @@ const Landing = ({ classes }) => (
     </Typography>
     <Typography
       component="h2"
-      variant="headline"
+      variant="h6"
       gutterBottom
       color="inherit"
       align="center"
+      className={classes.subheading}
     >
       Set goals. Track progress. Commit to Learning.
     </Typography>
