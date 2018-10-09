@@ -85,6 +85,7 @@ const styles = theme => ({
     position: 'absolute',
     bottom: 0,
     marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3,
     width: '100%',
     color: grey[500],
   },
