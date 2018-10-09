@@ -13,7 +13,6 @@ const Footer = ({ classes, open, auth }) => {
         open && auth && classes.appBarShift
       )}
     >
-      <div className={classes.toolbar} />
       <Typography variant="caption" color="inherit" align="center">
         &copy; 2018 Cynthia Quach
       </Typography>
